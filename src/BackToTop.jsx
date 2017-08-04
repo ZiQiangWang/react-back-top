@@ -19,8 +19,8 @@ class BackToTop extends Component {
         ...props.position,
         position: 'fixed',
         zIndex: 1000,
-        width: props.text !== undefined ? '' : props.width,
-        height: props.text !== undefined ? '' : props.height,
+        width: props.text !== '' ? '' : props.width,
+        height: props.text !== '' ? '' : props.height,
         padding: '6px 12px',
 
         fontSize: props.fontSize,
