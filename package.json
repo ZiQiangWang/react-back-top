@@ -1,6 +1,6 @@
 {
   "name": "react-back-top",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "React component for back to top",
   "main": "./lib/BackToTop.js",
   "scripts": {

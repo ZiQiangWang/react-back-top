@@ -966,7 +966,7 @@ const Demo = props => (
 　　ALBUS DUMBLEDORE
 
     </p>
-    <BackToTop text="回到顶部" topDistance={10} speed={100} timing="easeIn" />
+    <BackToTop text="回到顶部" icon="fa fa-address-book-o" topDistance={10} speed={100} timing="easeIn" />
   </div>
 );
 

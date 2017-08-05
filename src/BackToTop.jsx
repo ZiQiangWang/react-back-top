@@ -108,7 +108,7 @@ class BackToTop extends Component {
         onMouseOver={() => this.handleHover(true)}
         onMouseOut={() => this.handleHover(false)}
       >
-        { icon !== '' ? <span className={icon}></span> : '' }
+        { icon !== '' ? <span className={icon} style={{ paddingRight: (text !== '' ? '10px' : '0') }}></span> : '' }
         { text }
       </button>
     );
