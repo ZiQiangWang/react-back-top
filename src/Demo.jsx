@@ -966,7 +966,10 @@ const Demo = props => (
 　　ALBUS DUMBLEDORE
 
     </p>
-    <BackToTop text="回到顶部" icon="fa fa-address-book-o" topDistance={10} speed={100} timing="easeIn" />
+    <BackToTop shape="round" icon="material-icons md-18 arrow_upward" position={{ bottom: '40%', right: '5%' }} />
+    <BackToTop shape="round" icon="fa fa-arrow-up" position={{ bottom: '30%', right: '5%' }} />
+    <BackToTop text="回到顶部" position={{ bottom: '20%', right: '5%' }} />
+    <BackToTop text="回到顶部" icon="fa fa-arrow-up" position={{ bottom: '10%', right: '5%' }} />
   </div>
 );
 

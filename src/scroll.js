@@ -75,11 +75,20 @@ export const scrollTo = (pos, during = 60, ease = 'linear') => {
   }
 
   let start = 0;
+  let stop;
   const _run = function () {
     start++;
     const top = Tween[ease](start, scrollY, targetY - scrollY, during);
     window.scrollTo(0, top);
-    if (start < during) requestAnimationFrame(_run);
+    if (start < during) {
+      stop = requestAnimationFrame(_run);
+    }
   };
   _run();
+
+  return stop;
 };
+
+export const stopScroll = (stop) => {
+  cancelAnimationFrame(stop);
+}

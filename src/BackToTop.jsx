@@ -21,11 +21,11 @@ class BackToTop extends Component {
         zIndex: 1000,
         paddingBottom: '50%',
         padding: '6px 12px',
-
         fontSize: props.fontSize,
         textAlign: 'center',
         whiteSpace: 'nowrap',
-
+        width: props.text === '' && `${props.radius * 2}px`,
+        height: props.text === '' && `${props.radius * 2}px`,
         opacity: 0,
         color: props.color,
         background: props.background,
@@ -42,19 +42,28 @@ class BackToTop extends Component {
     this.handleScroll = this.handleScroll.bind(this);
   }
 
+  componentWillMount() {
+    const { icon, text } = this.props;
+    const iconStyle = {
+      paddingRight: (text !== '' ? '10px' : '0'),
+    };
+    if (icon === '') {
+      this.ico = '';
+    } else if (/^material-icons[\s]/.test(icon)) {
+      const classes = icon.split(' ');
+      const item = classes.pop();
+      this.ico = <span className={classes.join(' ')} style={iconStyle}>{item}</span>;
+    } else {
+      this.ico = <span className={icon} style={iconStyle}></span>;
+    }
+  }
   /* eslint-disable react/no-did-mount-set-state */
   componentDidMount() {
-    if (this.props.shape === 'round') {
-      const width = this.btn.offsetWidth;
-      this.setState({
-        ...this.state,
-        style: {
-          ...this.state.style,
-          height: `${width}px`,
-        },
-      });
-    }
     window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUpdate() {
+
   }
 
   componentWillUnmount() {
@@ -72,6 +81,7 @@ class BackToTop extends Component {
         style: {
           ...this.state.style,
           opacity: 1,
+          zIndex: 1000,
         },
       });
     } else if (opacity === 1 && !show) {
@@ -80,6 +90,7 @@ class BackToTop extends Component {
         style: {
           ...this.state.style,
           opacity: 0,
+          zIndex: -1,
         },
       });
     }
@@ -98,7 +109,7 @@ class BackToTop extends Component {
   }
 
   render() {
-    const { icon, text, hover } = this.props;
+    const { text, hover } = this.props;
 
     return (
       <button
@@ -108,7 +119,7 @@ class BackToTop extends Component {
         onMouseOver={() => this.handleHover(true)}
         onMouseOut={() => this.handleHover(false)}
       >
-        { icon !== '' ? <span className={icon} style={{ paddingRight: (text !== '' ? '10px' : '0') }}></span> : '' }
+        { this.ico }
         { text }
       </button>
     );
@@ -119,7 +130,8 @@ BackToTop.defaultProps = {
   shape: 'default',
   text: '',
   icon: '',
-  fontSize: '16px',
+  radius: 24,
+  fontSize: '18px',
   position: {
     bottom: '10%',
     right: '5%',
@@ -131,11 +143,12 @@ BackToTop.defaultProps = {
   },
   topDistance: 200,
   timing: 'linear',
-  speed: 15,
+  speed: 100,
 };
 
 BackToTop.propTypes = {
   shape: PropTypes.oneOf(['default', 'round']),
+  radius: PropTypes.number,
   text: PropTypes.string,
   fontSize: PropTypes.string,
   position: PropTypes.shape({
