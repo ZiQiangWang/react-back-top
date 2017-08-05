@@ -19,8 +19,7 @@ class BackToTop extends Component {
         ...props.position,
         position: 'fixed',
         zIndex: 1000,
-        width: props.text !== '' ? '' : props.width,
-        height: props.text !== '' ? '' : props.height,
+        paddingBottom: '50%',
         padding: '6px 12px',
 
         fontSize: props.fontSize,
@@ -43,7 +42,18 @@ class BackToTop extends Component {
     this.handleScroll = this.handleScroll.bind(this);
   }
 
+  /* eslint-disable react/no-did-mount-set-state */
   componentDidMount() {
+    if (this.props.shape === 'round') {
+      const width = this.btn.offsetWidth;
+      this.setState({
+        ...this.state,
+        style: {
+          ...this.state.style,
+          height: `${width}px`,
+        },
+      });
+    }
     window.addEventListener('scroll', this.handleScroll);
   }
 
@@ -92,6 +102,7 @@ class BackToTop extends Component {
 
     return (
       <button
+        ref={(instance) => { this.btn = instance; }}
         style={this.state.hover ? { ...this.state.style, ...hover } : this.state.style}
         onClick={this.handleClickBack}
         onMouseOver={() => this.handleHover(true)}
@@ -108,8 +119,6 @@ BackToTop.defaultProps = {
   shape: 'default',
   text: '',
   icon: '',
-  height: '',
-  width: '',
   fontSize: '16px',
   position: {
     bottom: '10%',
@@ -129,8 +138,6 @@ BackToTop.propTypes = {
   shape: PropTypes.oneOf(['default', 'round']),
   text: PropTypes.string,
   fontSize: PropTypes.string,
-  width: PropTypes.string,
-  height: PropTypes.string,
   position: PropTypes.shape({
     top: PropTypes.string,
     bottom: PropTypes.string,
